@@ -1,11 +1,20 @@
 // TODO: Fix the compiler error in the function without adding any new line.
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
+fn fill_vec(mut vec: Vec<i32>) -> Vec<i32> {
     vec.push(88);
 
-    vec
+    vec.to_vec()
+}
+
+fn test<'a>(mut vec: &'a mut Vec<i32>, _vec2: &'a mut Vec<i32>) {
+    // original vec in main() should not change because this is just a reference only in this scope (vec is mutable variable whose value (aka pointer) is copied from arg)
+    vec = _vec2;
 }
 
 fn main() {
+    let mut x = vec![1, 2, 3];
+    let mut y = vec![1, 2, 4];
+    test(&mut x, &mut y);
+    println!("{}", x[2]);
     // You can optionally experiment here.
 }
 
